@@ -18,7 +18,7 @@ body {
   position: relative;
   color: #fff200;
   text-shadow: 5px 5px 5px #1d0a32;
-  background-color: rgba(118, 0, 197, 0.8);
+  background: linear-gradient(-5deg, rgba(214, 0, 201, 0.8), rgba(118, 0, 197, 0.8));
 }
 
 h1 {
@@ -60,4 +60,10 @@ button:active {
   display: flex;
   flex-wrap: wrap;
   gap: 25px;
+}
+
+.error-message {
+  color: #dddddd;
+  text-shadow: none;
+  word-break: break-all;
 }/*# sourceMappingURL=style.css.map */

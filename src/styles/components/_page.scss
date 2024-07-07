@@ -18,7 +18,7 @@ html * {
     position: relative;
     color: #fff200;
     text-shadow: 5px 5px 5px #1d0a32;
-    background-color: #7600c5cc;
+    background: linear-gradient(-5deg, rgb(214 0 201 / 80%), rgba(118, 0, 197, 0.8));
   }
   h1 {
     font-size: 2em;
@@ -58,4 +58,9 @@ button:active {
     display: flex;
     flex-wrap: wrap;
     gap: 25px;
+  }
+  .error-message {
+    color: #dddddd;
+    text-shadow: none;
+    word-break: break-all;
   }
