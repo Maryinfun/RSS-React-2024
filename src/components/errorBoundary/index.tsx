@@ -25,10 +25,10 @@ class ErrorBoundary extends Component<Props, State> {
           <br />
           <br />
           <br />
-          <div className='error-message'>
+          <p className='error-message'>
           {this.state.errorInfo?.componentStack}
 
-          </div>
+          </p>
         </div>
       );
     }

@@ -2,6 +2,7 @@ import { Component } from 'react';
 // import PokeCard from '../PokeCard';
 // import data from '../../data';
 import ServerData, { ListOfAllPokemons } from '../../api';
+import PokemonCard from '../pokemonCard/card';
 
 const serverData = new ServerData();
 interface Props {
@@ -58,7 +59,7 @@ class AllPokemons extends Component<Props, State> {
 
   render() {
     return (
-      <div className="poke-data container">
+      <div className="cards-wrapper">
         {this.state.error ? (
           <h2>Error: {this.state.error.message}</h2>
         ) : !this.state.pokemons ? (
@@ -66,7 +67,9 @@ class AllPokemons extends Component<Props, State> {
         ) : !this.state.searchResult ? (
           <h2>Sorry, not found.</h2>
         ) : (
-          this.state.pokemons.results.map((result) => <p key={result.name}>{result.name}</p>)
+          this.state.pokemons.results.map((pokemon) => (
+            <PokemonCard key={pokemon.name} name={pokemon.name} url={pokemon.url} />
+          ))
         )}
       </div>
     );
