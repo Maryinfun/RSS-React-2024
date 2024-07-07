@@ -1,0 +1,63 @@
+html * {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-size: 32px;
+  font-family: "Honey Crepes";
+}
+
+@font-face {
+  font-family: "Honey Crepes";
+  src: url("../../assets/fonts/Honey Crepes.ttf");
+}
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 100vh;
+  position: relative;
+  color: #fff200;
+  text-shadow: 5px 5px 5px #1d0a32;
+  background-color: rgba(118, 0, 197, 0.8);
+}
+
+h1 {
+  font-size: 2em;
+}
+
+button {
+  width: -moz-fit-content;
+  width: fit-content;
+  padding: 15px 25px;
+  background-color: #fff200;
+  font-size: 0.7em;
+  color: rgba(29, 10, 50, 0.7803921569);
+  border: none;
+  box-shadow: 5px 5px 5px rgba(29, 10, 50, 0.5803921569);
+  transition: all 0.2s ease-in-out;
+}
+@media (hover: hover) and (pointer: fine) {
+  button:hover {
+    transform: scale(1.05);
+    cursor: pointer;
+  }
+}
+
+button:active {
+  transform: scale(1);
+  box-shadow: none;
+}
+
+.main {
+  max-width: 1440px;
+  margin: 50px;
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+}
+
+.search-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 25px;
+}/*# sourceMappingURL=style.css.map */
