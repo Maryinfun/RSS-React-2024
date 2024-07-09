@@ -1,6 +1,4 @@
 import { Component } from 'react';
-// import PokeCard from '../PokeCard';
-// import data from '../../data';
 import ServerData, { ListOfAllPokemons } from '../../api';
 import PokemonCard from '../pokemonCard/card';
 

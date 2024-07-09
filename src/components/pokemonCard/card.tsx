@@ -43,8 +43,6 @@ class PokemonCard extends Component<Props, State> {
             <p>Height - {this.state.pokemon.height}</p>
             <p>Order - {this.state.pokemon.order}</p>
             <p>Weight - {this.state.pokemon.weight}</p>
-            <p>Height - {this.state.pokemon.height}</p>
-            {/* <p>Forms - {this.state.pokemon.forms.name}</p> */}
           </>
         )}
       </div>
