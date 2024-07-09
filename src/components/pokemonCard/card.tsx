@@ -20,7 +20,6 @@ class PokemonCard extends Component<Props, State> {
   async getAllPokemonsFromServer() {
     try {
       const pokemon: Pokemon = (await serverData.getAllPokemons(this.props.url)) as Pokemon;
-      console.log(pokemon);
       this.setState({ pokemon });
     } catch (error) {
       console.log((error as Error).message);

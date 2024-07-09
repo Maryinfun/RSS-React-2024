@@ -1,37 +1,33 @@
-import { Component, ReactNode } from 'react';
 import SearchInput from '../components/searchInput';
 import ForceError from '../components/forceErrorButton';
 import ErrorBoundary from '../components/errorBoundary';
 import AllPokemons from '../components/pokemomonsList';
+import { useState, useEffect } from 'react';
 
-type State = {
-  wordForSearch: string;
+const App = () => {
+  const [searchWord, setSearchWord] = useState(localStorage.getItem('searchWord') || '');
+  useEffect(() => {
+    localStorage.setItem('searchWord', searchWord);
+  }, [searchWord]);
+
+  const updateSearchWord = (searchWord: string) => {
+    setSearchWord(searchWord);
+  };
+
+  return (
+    <>
+      <header></header>
+      <main className="main">
+        <h1>Welcome to Pokemon World!</h1>
+        <ErrorBoundary>
+          <SearchInput addSearchWord={updateSearchWord} />
+          <AllPokemons wordForSearch={searchWord} />
+          <ForceError />
+        </ErrorBoundary>
+      </main>
+      <footer></footer>
+    </>
+  );
 };
-
-class App extends Component {
-  public state: Readonly<State> = { wordForSearch: localStorage.getItem('searchWord') || '' };
-
-  render(): ReactNode {
-    return (
-      <>
-        <header></header>
-        <main className="main">
-          <h1>Welcome to Pokemon World!</h1>
-          <ErrorBoundary>
-            <SearchInput
-              addSearchWord={(searchWord) => {
-                this.setState({ wordForSearch: searchWord });
-                localStorage.setItem('searchWord', searchWord);
-              }}
-            />
-            <AllPokemons wordForSearch={this.state.wordForSearch} />
-            <ForceError />
-          </ErrorBoundary>
-        </main>
-        <footer></footer>
-      </>
-    );
-  }
-}
 
 export default App;

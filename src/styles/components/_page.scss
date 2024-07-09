@@ -1,88 +1,89 @@
 html * {
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
-    font-size: 32px;
-    font-family: 'Honey Crepes';
-  }
-  
-  @font-face {
-    font-family: 'Honey Crepes';
-    src: url('../../assets/fonts/Honey\ Crepes.ttf');
-  }
-  body {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    min-height: 100vh;
-    position: relative;
-    color: #fff200;
-    text-shadow: 5px 5px 5px #1d0a32;
-    background: linear-gradient(-5deg, rgb(214 0 201 / 80%), rgba(118, 0, 197, 0.8));
-  }
-  h1 {
-    font-size: 2em;
-  }
-  p {
-    text-shadow: none;
-  }
-button {
-    width: fit-content;
-    padding: 15px 25px;
-    background-color: #fff200;
-    font-size: .7em;
-    color: #1d0a32c7;
-    border: none;
-    box-shadow: 5px 5px 5px #1d0a3294;
-    transition: all 0.2s ease-in-out;
-    @media (hover: hover) and (pointer: fine) {
-        &:hover {
-          transform: scale(1.05);
-          cursor: pointer;
-        }
-      }
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-size: 32px;
+  font-family: 'Honey Crepes';
+}
 
-      
+@font-face {
+  font-family: 'Honey Crepes';
+  src: url('../../assets/fonts/Honey\ Crepes.ttf');
+}
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 100vh;
+  position: relative;
+  color: #fff200;
+  text-shadow: 5px 5px 5px #1d0a32;
+  background: linear-gradient(-5deg, rgb(214 0 201 / 80%), rgba(118, 0, 197, 0.8));
+}
+h1 {
+  font-size: 2em;
+}
+p {
+  text-shadow: none;
+}
+button {
+  width: fit-content;
+  padding: 15px 25px;
+  background-color: #fff200;
+  font-size: 0.7em;
+  color: #1d0a32c7;
+  border: none;
+  box-shadow: 5px 5px 5px #1d0a3294;
+  transition: all 0.2s ease-in-out;
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      transform: scale(1.05);
+      cursor: pointer;
+    }
+  }
 }
 
 button:active {
-    transform: scale(1);
-    box-shadow: none;
+  transform: scale(1);
+  box-shadow: none;
 }
-  .main {
-    max-width: 1440px;
-    margin: 50px;
-    display: flex;
-    flex-direction: column;
-    gap: 50px;
-    // justify-content: center;
-  }
-  .search-wrapper {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 25px;
-  }
-  .error-message {
-    color: #dfff00;
-    text-shadow: none;
-    word-break: break-all;
-  }
-  .cards-wrapper {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-  }
-  .cards-wrapper__card {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    padding: 20px;
-    // width: fit-content;
-    width: 400px;
-    background: linear-gradient(-5deg, rgba(214, 0, 201, 0.4), rgba(118, 0, 197, 0.4));
-    border: 3px solid #dfff00;
-    border-radius: 5px;
-  }
-  .card__pokemon-name {
-    margin-bottom: 15px;
-  }
+.main {
+  max-width: 1440px;
+  margin: 50px;
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+  // justify-content: center;
+}
+.search-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 25px;
+}
+.search-wrapper__input {
+  padding: 5px 10px;
+}
+.error-message {
+  color: #dfff00;
+  text-shadow: none;
+  word-break: break-all;
+}
+.cards-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+.cards-wrapper__card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 20px;
+  // width: fit-content;
+  width: 400px;
+  background: linear-gradient(-5deg, rgba(214, 0, 201, 0.4), rgba(118, 0, 197, 0.4));
+  border: 3px solid #dfff00;
+  border-radius: 5px;
+}
+.card__pokemon-name {
+  margin-bottom: 15px;
+}
