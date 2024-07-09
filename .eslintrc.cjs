@@ -1,20 +1,37 @@
 module.exports = {
   root: true,
-  env: { browser: true, es2020: true },
   extends: [
-    "eslint:recommended",
-    "plugin:@typescript-eslint/recommended",
-    "plugin:react-hooks/recommended",
+    'prettier',
+    'plugin:react/recommended',
+    'plugin:@typescript-eslint/recommended',
+    'plugin:react-hooks/recommended',
   ],
-  ignorePatterns: ["dist", ".eslintrc.cjs"],
-  parser: "@typescript-eslint/parser",
-  plugins: ["react-compiler"],
+
+  env: {
+    es6: true,
+    jest: true,
+    node: true,
+    browser: true,
+  },
+  extends: 'plugin:react/recommended',
+  parser: '@typescript-eslint/parser',
+  parserOptions: {
+    ecmaVersion: 'latest',
+    sourceType: 'module',
+  },
+  plugins: ['react', 'react-compiler', 'react-hooks', '@typescript-eslint', 'prettier'],
   rules: {
-    "react-refresh/only-export-components": [
-      "warn",
-      { allowConstantExport: true },
-    ],
-    "@typescript-eslint/no-explicit-any": "error",
-    "react-compiler/react-compiler": "error",
+    'prettier/prettier': 'error',
+    'react-hooks/rules-of-hooks': 'error',
+    'react-compiler/react-compiler': 'error',
+    '@typescript-eslint/ban-ts-comment': 'error',
+    '@typescript-eslint/no-explicit-any': 'error',
+    'react/react-in-jsx-scope': 'off',
+  },
+  settings: {
+    react: {
+      pragma: 'React',
+      version: 'detect',
+    },
   },
 };

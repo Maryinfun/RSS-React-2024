@@ -13,7 +13,7 @@ class ErrorBoundary extends Component<Props, State> {
     errorInfo: null,
   };
   public componentDidCatch(error: Error, errorInfo: ErrorInfo): void {
-    console.log('Handle error:', error, errorInfo)
+    console.log('Handle error:', error, errorInfo);
     this.setState({ error, errorInfo });
   }
 
@@ -25,10 +25,7 @@ class ErrorBoundary extends Component<Props, State> {
           <br />
           <br />
           <br />
-          <p className='error-message'>
-          {this.state.errorInfo?.componentStack}
-
-          </p>
+          <p className="error-message">{this.state.errorInfo?.componentStack}</p>
         </div>
       );
     }

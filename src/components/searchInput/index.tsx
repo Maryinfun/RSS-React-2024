@@ -5,7 +5,7 @@ type Props = {
 };
 
 type State = {
-    wordForSearch: string;
+  wordForSearch: string;
 };
 
 class SearchInput extends Component<Props, State> {

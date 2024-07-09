@@ -33,12 +33,12 @@ class PokemonCard extends Component<Props, State> {
 
   render() {
     return (
-      <div className='cards-wrapper__card'>
+      <div className="cards-wrapper__card">
         {!this.state.pokemon ? (
           <h2>Loading...</h2>
         ) : (
           <>
-            <h2 className='card__pokemon-name'>{(this.state.pokemon.name).toUpperCase()}</h2>
+            <h2 className="card__pokemon-name">{this.state.pokemon.name.toUpperCase()}</h2>
             <p>Base experience - {this.state.pokemon.base_experience}</p>
             <p>Height - {this.state.pokemon.height}</p>
             <p>Order - {this.state.pokemon.order}</p>
