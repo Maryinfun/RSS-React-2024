@@ -66,10 +66,6 @@ button:active {
   gap: 25px;
 }
 
-.search-wrapper__input {
-  padding: 5px 10px;
-}
-
 .error-message {
   color: #dfff00;
   text-shadow: none;
