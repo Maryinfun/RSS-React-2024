@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import { useEffect, useState } from 'react';
 import ServerData, { ListOfAllPokemons } from '../../api';
 import PokemonCard from '../pokemonCard/card';
 
@@ -7,71 +7,49 @@ interface Props {
   wordForSearch: string;
 }
 
-interface State {
-  pokemons: ListOfAllPokemons | null;
-  error: Error | '';
-  searchResult: boolean;
-}
+export default function AllPokemons(props: Props) {
+  const [error, setError] = useState<Error | ''>('');
+  const [pokemons, setPokemons] = useState<ListOfAllPokemons | null>(null);
+  const [searchResult, setSearchResult] = useState<boolean>(true);
 
-class AllPokemons extends Component<Props, State> {
-  public state: Readonly<State> = {
-    pokemons: null,
-    error: '',
-    searchResult: true,
+  const getAllPokemonsFromServer = async () => {
+    try {
+      setPokemons(null);
+      const allPokemons: ListOfAllPokemons = (await serverData.getAllPokemons(
+        'https://pokeapi.co/api/v2/pokemon'
+      )) as ListOfAllPokemons;
+      setTimeout(() => {
+        setPokemons(filterPokemons(allPokemons, props.wordForSearch));
+      }, 300);
+    } catch (error) {
+      setError(error as Error);
+    }
   };
 
-  filterPokemons(pokemons: ListOfAllPokemons, wordForSearch: string): ListOfAllPokemons {
+  const filterPokemons = (pokemons: ListOfAllPokemons, wordForSearch: string): ListOfAllPokemons => {
     const filteredPokemons: ListOfAllPokemons = Object.create(pokemons);
     const results = pokemons.results.filter((pokemon) =>
       pokemon.name.toLowerCase().includes(wordForSearch.toLowerCase().trimStart())
     );
     filteredPokemons.results = results;
-    results.length ? this.setState({ searchResult: true }) : this.setState({ searchResult: false });
+    results.length ? setSearchResult(true) : setSearchResult(false);
     return filteredPokemons;
-  }
+  };
+  useEffect(() => {
+    getAllPokemonsFromServer();
+  }, [props.wordForSearch]);
 
-  async getAllPokemonsFromServer() {
-    try {
-      this.setState({ pokemons: null });
-      const allPokemons: ListOfAllPokemons = (await serverData.getAllPokemons(
-        'https://pokeapi.co/api/v2/pokemon'
-      )) as ListOfAllPokemons;
-      setTimeout(() => {
-        this.setState({ pokemons: this.filterPokemons(allPokemons, this.props.wordForSearch) });
-      }, 300);
-    } catch (error) {
-      this.setState({ error: error as Error });
-    }
-  }
-
-  componentDidMount(): void {
-    this.getAllPokemonsFromServer();
-  }
-
-  componentDidUpdate(prevProps: Readonly<Props>, prevState: Readonly<State>): void {
-    if (prevProps.wordForSearch === this.props.wordForSearch || !prevState.pokemons) {
-      return;
-    }
-    this.getAllPokemonsFromServer();
-  }
-
-  render() {
-    return (
-      <div className="cards-wrapper">
-        {this.state.error ? (
-          <h2>Error: {this.state.error.message}</h2>
-        ) : !this.state.pokemons ? (
-          <h2>Loading...</h2>
-        ) : !this.state.searchResult ? (
-          <h2>Sorry, not found.</h2>
-        ) : (
-          this.state.pokemons.results.map((pokemon) => (
-            <PokemonCard key={pokemon.name} name={pokemon.name} url={pokemon.url} />
-          ))
-        )}
-      </div>
-    );
-  }
+  return (
+    <div className="cards-wrapper">
+      {error ? (
+        <h2>Error: {error.message}</h2>
+      ) : !pokemons ? (
+        <h2>Loading...</h2>
+      ) : !searchResult ? (
+        <h2>Sorry, not found.</h2>
+      ) : (
+        pokemons.results.map((pokemon) => <PokemonCard key={pokemon.name} name={pokemon.name} url={pokemon.url} />)
+      )}
+    </div>
+  );
 }
-
-export default AllPokemons;
