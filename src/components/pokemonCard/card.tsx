@@ -1,51 +1,41 @@
-import { Component } from 'react';
+import { useEffect, useState } from 'react';
 import ServerData, { Pokemon } from '../../api';
 
 const serverData = new ServerData();
 
 type Props = {
-  name: string;
   url: string;
 };
 
-type State = {
-  pokemon: Pokemon | null;
-};
+export default function PokemonCard(props: Props) {
+  const [pokemon, setPokemon] = useState<Pokemon | null>(null);
 
-class PokemonCard extends Component<Props, State> {
-  public state: Readonly<State> = {
-    pokemon: null,
-  };
-
-  async getAllPokemonsFromServer() {
+  const getAllPokemonsFromServer = async () => {
     try {
-      const pokemon: Pokemon = (await serverData.getAllPokemons(this.props.url)) as Pokemon;
-      this.setState({ pokemon });
+      const pokemon: Pokemon = (await serverData.getAllPokemons(props.url)) as Pokemon;
+      setPokemon(pokemon);
     } catch (error) {
       console.log((error as Error).message);
     }
-  }
+  };
 
-  componentDidMount(): void {
-    this.getAllPokemonsFromServer();
-  }
+  useEffect(() => {
+    getAllPokemonsFromServer();
+  }, [props.url]);
 
-  render() {
-    return (
-      <div className="cards-wrapper__card">
-        {!this.state.pokemon ? (
-          <h2>Loading...</h2>
-        ) : (
-          <>
-            <h2 className="card__pokemon-name">{this.state.pokemon.name.toUpperCase()}</h2>
-            <p>Base experience - {this.state.pokemon.base_experience}</p>
-            <p>Height - {this.state.pokemon.height}</p>
-            <p>Order - {this.state.pokemon.order}</p>
-            <p>Weight - {this.state.pokemon.weight}</p>
-          </>
-        )}
-      </div>
-    );
-  }
+  return (
+    <div className="cards-wrapper__card">
+      {!pokemon ? (
+        <h2>Loading...</h2>
+      ) : (
+        <>
+          <h2 className="card__pokemon-name">{pokemon.name.toUpperCase()}</h2>
+          <p>Base experience - {pokemon.base_experience}</p>
+          <p>Height - {pokemon.height}</p>
+          <p>Order - {pokemon.order}</p>
+          <p>Weight - {pokemon.weight}</p>
+        </>
+      )}
+    </div>
+  );
 }
-export default PokemonCard;
