@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import ServerData, { ListOfAllPokemons } from '../../api';
 import PokemonCard from '../pokemonCard/card';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const serverData = new ServerData();
 interface Props {
@@ -8,10 +9,12 @@ interface Props {
 }
 
 export default function AllPokemons(props: Props) {
+  const { page } = useParams<{ page: string }>();
+  const navigate = useNavigate();
   const [error, setError] = useState<Error | ''>('');
   const [pokemons, setPokemons] = useState<ListOfAllPokemons | null>(null);
   const [searchResult, setSearchResult] = useState<boolean>(true);
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState<number>(parseInt(page || '1', 10));
   const cardsPerPage = 6;
 
   const getAllPokemonsFromServer = async () => {
@@ -42,19 +45,23 @@ export default function AllPokemons(props: Props) {
     getAllPokemonsFromServer();
   }, [props.wordForSearch]);
 
+  useEffect(() => {
+    setCurrentPage(parseInt(page || '1', 10));
+  }, [page]);
+
   const lastCardInd: number = currentPage * cardsPerPage;
   const firstCardInd: number = lastCardInd - cardsPerPage;
   const currentCards = pokemons ? pokemons.results.slice(firstCardInd, lastCardInd) : [];
 
   const nextPage = () => {
     if (currentPage < Math.ceil((pokemons?.results.length || 0) / cardsPerPage)) {
-      setCurrentPage(currentPage + 1);
+      navigate(`/page/${currentPage + 1}`);
     }
   };
 
   const prevPage = () => {
     if (currentPage > 1) {
-      setCurrentPage(currentPage - 1);
+      navigate(`/page/${currentPage - 1}`);
     }
   };
 

@@ -1,4 +1,4 @@
-import { ReactNode, ErrorInfo, Component } from 'react';
+import React, { ReactNode, ErrorInfo, Component } from 'react';
 interface Props {
   children: ReactNode;
 }
@@ -21,7 +21,7 @@ class ErrorBoundary extends Component<Props, State> {
     if (this.state.error) {
       return (
         <div className="error-block">
-          {this.state.error.toString()}
+          {this.state.error ? this.state.error.toString() : 'Unknown error'}
           <br />
           <br />
           <br />

@@ -10,10 +10,26 @@
   ],
   "compilerOptions": {
     "target": "ES6",
+    "lib": ["dom", "es2015"],
+    "jsx": "react", // Добавьте эту строку
     "module": "commonjs",
-    "strict": true,
+    "moduleResolution": "node",
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "strictBindCallApply": true,
+    "strictPropertyInitialization": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "baseUrl": "./",
+    "paths": {
+      "@/*": ["src/*"]
+    },
+        "types": ["@testing-library/jest-dom"],
   }
 }

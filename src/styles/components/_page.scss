@@ -49,14 +49,14 @@ button:active {
   box-shadow: none;
 }
 button:disabled {
-    box-shadow: none;
-    background-color: #ffffff;
-    @media (hover: hover) and (pointer: fine) {
-        &:hover {
-          transform: none;
-          cursor: default;
-        }
-      }
+  box-shadow: none;
+  background-color: #ffffff;
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      transform: none;
+      cursor: default;
+    }
+  }
 }
 .main {
   max-width: 1440px;
@@ -100,6 +100,23 @@ button:disabled {
   gap: 50px;
 }
 .pagination-wrapper__page-number {
-  display: flex;
-  align-items: center;
+    display: flex;
+    padding: 10px 50px;
+    flex-direction: column;
+    gap: 75px;
+}
+.page-404{
+    display: flex;
+    flex-direction: column;
+    padding: 100px 20px;
+    gap: 50px;
+}
+.page-404__img {
+  background: center / contain no-repeat url(../../assets/image/404.png);
+  aspect-ratio: 1;
+  flex: 1 1 400px;
+}
+.page-404__title, 
+.page-404__text {
+text-align: center;
 }
