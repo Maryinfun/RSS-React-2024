@@ -9,7 +9,7 @@ export default function BadPath() {
         You have lost your way, Darling!
         <br />
         <br />
-        there is nothing like that to be found here.{' '}
+        There is nothing like that to be found here.{' '}
       </div>
     </div>
   );

@@ -15,7 +15,7 @@ export default function AllPokemons(props: Props) {
   const [pokemons, setPokemons] = useState<ListOfAllPokemons | null>(null);
   const [searchResult, setSearchResult] = useState<boolean>(true);
   const [currentPage, setCurrentPage] = useState<number>(parseInt(page || '1', 10));
-  const cardsPerPage = 6;
+  const cardsPerPage = 10;
 
   const getAllPokemonsFromServer = async () => {
     try {
@@ -48,6 +48,15 @@ export default function AllPokemons(props: Props) {
   useEffect(() => {
     setCurrentPage(parseInt(page || '1', 10));
   }, [page]);
+
+  useEffect(() => {
+    if (pokemons) {
+      const totalPages = Math.ceil(pokemons.results.length / cardsPerPage);
+      if (currentPage > totalPages) {
+        navigate('/404');
+      }
+    }
+  }, [pokemons, currentPage, navigate]);
 
   const lastCardInd: number = currentPage * cardsPerPage;
   const firstCardInd: number = lastCardInd - cardsPerPage;

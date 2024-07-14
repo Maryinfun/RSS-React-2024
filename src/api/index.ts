@@ -7,21 +7,31 @@ export type ListOfAllPokemons = {
     url: string;
   }[];
 };
-export type Pokemon = {
+export type Sprites = {
+  front_default: string;
+};
+export type Form = {
   name: string;
-  base_experience: number;
-  height: number;
-  order: number;
-  weight: number;
+  url: string;
 };
 
+export type Pokemon = {
+  name: string;
+  sprites: Sprites;
+  forms?: Array<Form>;
+  base_experience?: number;
+  height?: number;
+  order?: number;
+  weight?: number;
+};
 class ServerData {
-  async getAllPokemons(api: string): Promise<ListOfAllPokemons | Pokemon> {
+  async getAllPokemons(api: string, limit: number = 300): Promise<ListOfAllPokemons | Pokemon> {
     const result = (
       await axios.get(api, {
-        params: {},
+        params: { limit },
       })
     ).data;
+    console.log(result);
     return result;
   }
 }

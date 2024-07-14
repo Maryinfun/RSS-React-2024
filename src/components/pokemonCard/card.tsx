@@ -13,6 +13,7 @@ export default function PokemonCard(props: Props) {
   const getAllPokemonsFromServer = async () => {
     try {
       const pokemon: Pokemon = (await serverData.getAllPokemons(props.url)) as Pokemon;
+      console.log(pokemon);
       setPokemon(pokemon);
     } catch (error) {
       console.log((error as Error).message);
@@ -30,10 +31,13 @@ export default function PokemonCard(props: Props) {
       ) : (
         <>
           <h2 className="card__pokemon-name">{pokemon.name.toUpperCase()}</h2>
-          <p>Base experience - {pokemon.base_experience}</p>
-          <p>Height - {pokemon.height}</p>
+          <div className="card__image" style={{ backgroundImage: `url(${pokemon.sprites.front_default})` }}></div>
+          {/* <p>{pokemon.forms ? pokemon.forms[0].url : null}</p> */}
+
+          <p className="card__base-experience">Base experience - {pokemon.base_experience}</p>
+          {/* <p>Height - {pokemon.height}</p>
           <p>Order - {pokemon.order}</p>
-          <p>Weight - {pokemon.weight}</p>
+          <p>Weight - {pokemon.weight}</p> */}
         </>
       )}
     </div>
