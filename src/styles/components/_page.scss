@@ -22,6 +22,7 @@ body {
 }
 h1 {
   font-size: 2em;
+  margin: 50px;
 }
 h2 {
     text-align: center;
@@ -63,32 +64,38 @@ button:disabled {
 }
 .main {
   max-width: 1440px;
-  margin: 50px;
   display: flex;
   flex-direction: column;
+  margin: 10px;
   gap: 50px;
 }
 .search-wrapper {
   display: flex;
   flex-wrap: wrap;
   gap: 25px;
+  margin-left: 50px;
 }
 .error-message {
   color: #dfff00;
   text-shadow: none;
   word-break: break-all;
 }
+.wrapper {
+    display: flex;
+}
 .cards-wrapper {
   display: flex;
   flex-wrap: wrap;
-  gap: 20px;
+  gap: 50px;
+  padding-left: 50px;
+  box-sizing: border-box;
 }
-.cards-wrapper__card {
+.cards-wrapper__card, .card__specification {
   display: flex;
   flex-direction: column;
   gap: 10px;
   padding: 20px;
-  width: 450px;
+  width: 350px;
   background: linear-gradient(-5deg, rgba(214, 0, 201, 0.4), rgba(118, 0, 197, 0.4));
   border: 3px solid #dfff00;
   border-radius: 5px;
@@ -103,6 +110,32 @@ button:disabled {
 
     }
   }
+}
+.card__specification {
+    height: fit-content;
+    min-width: 250px;
+    position: relative;
+    width: -webkit-fill-available;
+    @media (hover: hover) and (pointer: fine) {
+        &:hover {
+          transform: none;
+          cursor: default;    
+        }
+      }
+    
+}
+.specification__close {
+    width: min-content;
+    right: 20px;
+    position: absolute;
+    @media (hover: hover) and (pointer: fine) {
+        &:hover {
+          transform: scale(1.5);
+          cursor: pointer;
+    
+        }
+      }
+    
 }
 .card__pokemon-name {
   margin-bottom: 15px;
@@ -139,4 +172,9 @@ button:disabled {
 .page-404__title,
 .page-404__text {
   text-align: center;
+}
+@media screen and (max-width: 625px) {
+    .wrapper {
+        flex-flow: wrap-reverse;
+    }
 }

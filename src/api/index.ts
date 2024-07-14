@@ -31,7 +31,6 @@ class ServerData {
         params: { limit },
       })
     ).data;
-    console.log(result);
     return result;
   }
 }

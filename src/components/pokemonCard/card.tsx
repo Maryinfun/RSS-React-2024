@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import ServerData, { Pokemon } from '../../api';
+import { useNavigate } from 'react-router-dom';
 
 const serverData = new ServerData();
 
@@ -9,23 +10,36 @@ type Props = {
 
 export default function PokemonCard(props: Props) {
   const [pokemon, setPokemon] = useState<Pokemon | null>(null);
+  const navigate = useNavigate();
 
   const getAllPokemonsFromServer = async () => {
     try {
       const pokemon: Pokemon = (await serverData.getAllPokemons(props.url)) as Pokemon;
-      console.log(pokemon);
       setPokemon(pokemon);
     } catch (error) {
       console.log((error as Error).message);
     }
   };
 
+  const getPokemonId = () =>
+    props.url
+      .split('/')
+      .filter((str) => str)
+      .slice(-1)
+      .toString();
+
   useEffect(() => {
     getAllPokemonsFromServer();
   }, [props.url]);
 
   return (
-    <div className="cards-wrapper__card">
+    <div
+      className="cards-wrapper__card"
+      onClick={(event) => {
+        event.stopPropagation();
+        navigate(`specification/${getPokemonId()}`);
+      }}
+    >
       {!pokemon ? (
         <h2>Loading...</h2>
       ) : (

@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import ServerData, { ListOfAllPokemons } from '../../api';
 import PokemonCard from '../pokemonCard/card';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Outlet, useNavigate, useParams } from 'react-router-dom';
+import { trimUrl } from '../../utilities';
 
 const serverData = new ServerData();
 interface Props {
@@ -76,20 +77,23 @@ export default function AllPokemons(props: Props) {
 
   return (
     <>
-      <div className="cards-wrapper">
-        {error ? (
-          <h2>Error: {error.message}</h2>
-        ) : !pokemons ? (
-          <h2>Loading...</h2>
-        ) : !searchResult ? (
-          <h2>Sorry, not found.</h2>
-        ) : (
-          <>
-            {currentCards.map((pokemon) => (
-              <PokemonCard key={pokemon.name} url={pokemon.url} />
-            ))}
-          </>
-        )}
+      <div className="wrapper">
+        <div className="cards-wrapper" onClick={() => navigate(trimUrl(location.pathname, 'specification'))}>
+          {error ? (
+            <h2>Error: {error.message}</h2>
+          ) : !pokemons ? (
+            <h2>Loading...</h2>
+          ) : !searchResult ? (
+            <h2>Sorry, not found.</h2>
+          ) : (
+            <>
+              {currentCards.map((pokemon) => (
+                <PokemonCard key={pokemon.name} url={pokemon.url} />
+              ))}
+            </>
+          )}
+        </div>
+        <Outlet />
       </div>
       <div className="pagination-wrapper">
         <button onClick={prevPage} disabled={currentPage === 1}>

@@ -5,7 +5,7 @@ type Props = {
 };
 
 export default function SearchInput(props: Props) {
-  const [wordForSearch, setWordForSearch] = useState('');
+  const [wordForSearch, setWordForSearch] = useState(localStorage.getItem('searchWord') || '');
 
   return (
     <div className="search-wrapper">

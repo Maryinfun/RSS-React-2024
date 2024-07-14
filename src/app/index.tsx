@@ -1,11 +1,11 @@
 import SearchInput from '../components/searchInput';
 import ForceError from '../components/forceErrorButton';
-import ErrorBoundary from '../components/errorBoundary';
 import AllPokemons from '../components/pokemomonsList';
 import { useState, useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Layout from './layout';
 import BadPath from './404';
+import CardFullData from '../components/pokemonCard/cardFullData';
 
 export default function App() {
   const [searchWord, setSearchWord] = useState(localStorage.getItem('searchWord') || '');
@@ -20,14 +20,14 @@ export default function App() {
         path="/"
         element={
           <Layout>
-            <ErrorBoundary>
-              <SearchInput addSearchWord={setSearchWord} />
-              <AllPokemons wordForSearch={searchWord} />
-              <ForceError />
-            </ErrorBoundary>
+            <SearchInput addSearchWord={setSearchWord} />
+            <AllPokemons wordForSearch={searchWord} />
+            <ForceError />
           </Layout>
         }
-      ></Route>
+      >
+        <Route path="specification/:specification" element={<CardFullData />} />
+      </Route>
       <Route
         path="/page/:page"
         element={
@@ -35,7 +35,9 @@ export default function App() {
             <AllPokemons wordForSearch={searchWord} />
           </Layout>
         }
-      />
+      >
+        <Route path="specification/:specification" element={<CardFullData />} />
+      </Route>
       <Route path="*" element={<BadPath />} />
     </Routes>
   );
