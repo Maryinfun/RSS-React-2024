@@ -25,7 +25,7 @@ export type Pokemon = {
   weight?: number;
 };
 class ServerData {
-  async getAllPokemons(api: string, limit: number = 300): Promise<ListOfAllPokemons | Pokemon> {
+  async getAllPokemons(api: string, limit: number = 100): Promise<ListOfAllPokemons | Pokemon> {
     const result = (
       await axios.get(api, {
         params: { limit },

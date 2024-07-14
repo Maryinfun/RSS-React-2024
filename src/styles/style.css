@@ -166,6 +166,7 @@ button:disabled {
   display: flex;
   justify-content: flex-start;
   gap: 50px;
+  padding-left: 50px;
 }
 
 .pagination-wrapper__page-number {

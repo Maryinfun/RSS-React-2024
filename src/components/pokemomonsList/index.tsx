@@ -14,9 +14,10 @@ export default function AllPokemons(props: Props) {
   const navigate = useNavigate();
   const [error, setError] = useState<Error | ''>('');
   const [pokemons, setPokemons] = useState<ListOfAllPokemons | null>(null);
+  const [noFilterPokemons, setNoFilterPokemons] = useState<ListOfAllPokemons | null>(null);
   const [searchResult, setSearchResult] = useState<boolean>(true);
   const [currentPage, setCurrentPage] = useState<number>(parseInt(page || '1', 10));
-  const cardsPerPage = 10;
+  const cardsPerPage = 6;
 
   const getAllPokemonsFromServer = async () => {
     try {
@@ -26,6 +27,7 @@ export default function AllPokemons(props: Props) {
       )) as ListOfAllPokemons;
       setTimeout(() => {
         setPokemons(filterPokemons(allPokemons, props.wordForSearch));
+        setNoFilterPokemons(allPokemons);
       }, 300);
     } catch (error) {
       setError(error as Error);
@@ -51,13 +53,14 @@ export default function AllPokemons(props: Props) {
   }, [page]);
 
   useEffect(() => {
-    if (pokemons) {
-      const totalPages = Math.ceil(pokemons.results.length / cardsPerPage);
-      if (currentPage > totalPages) {
+    if (noFilterPokemons) {
+      const totalPages = noFilterPokemons && Math.ceil(noFilterPokemons.results.length / cardsPerPage);
+      console.log(totalPages);
+      if (totalPages && currentPage > totalPages) {
         navigate('/404');
       }
     }
-  }, [pokemons, currentPage, navigate]);
+  }, [noFilterPokemons, currentPage]);
 
   const lastCardInd: number = currentPage * cardsPerPage;
   const firstCardInd: number = lastCardInd - cardsPerPage;

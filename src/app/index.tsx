@@ -29,10 +29,12 @@ export default function App() {
         <Route path="specification/:specification" element={<CardFullData />} />
       </Route>
       <Route
-        path="/page/:page"
+        path="page/:page"
         element={
           <Layout>
+            <SearchInput addSearchWord={setSearchWord} />
             <AllPokemons wordForSearch={searchWord} />
+            <ForceError />
           </Layout>
         }
       >
