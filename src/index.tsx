@@ -6,7 +6,7 @@ import ErrorBoundary from './components/errorBoundary';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <ErrorBoundary>
-    <BrowserRouter basename={process.env.PUBLIC_URL}>
+    <BrowserRouter>
       <App />
     </BrowserRouter>
   </ErrorBoundary>

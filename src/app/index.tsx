@@ -3,7 +3,7 @@ import ForceError from '../components/forceErrorButton';
 import ErrorBoundary from '../components/errorBoundary';
 import AllPokemons from '../components/pokemomonsList';
 import { useState, useEffect } from 'react';
-import { BrowserRouter as Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import Layout from './layout';
 import BadPath from './404';
 
