@@ -1,0 +1,14 @@
+import { defineConfig } from 'vitest/config';
+import coverage from '@vitest/coverage-c8';
+
+export default defineConfig({
+  test: {
+    setupFiles: './setupTests.js',
+    coverage: {
+      provider: 'v8',
+      reporter: ['text', 'json', 'html'],
+    },
+  },
+  plugins: [coverage()],
+});
+
