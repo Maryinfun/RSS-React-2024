@@ -1,5 +1,3 @@
-import React from 'react';
-
 export default function BadPath() {
   return (
     <div className="page-404">

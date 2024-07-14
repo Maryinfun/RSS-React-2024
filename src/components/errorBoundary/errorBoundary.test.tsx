@@ -1,4 +1,3 @@
-import React, { ReactNode, ErrorInfo, Component } from 'react';
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { vi } from 'vitest';

@@ -2,8 +2,8 @@ import SearchInput from '../components/searchInput';
 import ForceError from '../components/forceErrorButton';
 import ErrorBoundary from '../components/errorBoundary';
 import AllPokemons from '../components/pokemomonsList';
-import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { BrowserRouter as Routes, Route } from 'react-router-dom';
 import Layout from './layout';
 import BadPath from './404';
 
