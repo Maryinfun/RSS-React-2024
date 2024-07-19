@@ -1,18 +1,26 @@
-import { ReactNode } from 'react';
+import { ReactNode, useContext } from 'react';
+import { ThemeContext } from '../components/providers';
 
 interface LayoutProps {
   children: ReactNode;
 }
 
 export default function Layout({ children }: LayoutProps) {
+  const { theme, setTheme } = useContext(ThemeContext);
+  const changeTheme = () => {
+    setTheme(theme === 'light' ? null : 'light');
+  };
   return (
-    <>
-      <header></header>
-      <main className="main">
+    <div className="app">
+      <header className="header">
+        {' '}
         <h1>Welcome to Pokemon World!</h1>
-        {children}
-      </main>
+        <button className="button theme-button" onClick={changeTheme}>
+          Change Theme
+        </button>
+      </header>
+      <main className="main">{children}</main>
       <footer></footer>
-    </>
+    </div>
   );
 }
