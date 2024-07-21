@@ -3,6 +3,9 @@ import ServerData, { ListOfAllPokemons } from '../../api';
 import PokemonCard from '../pokemonCard/card';
 import { Outlet, useNavigate, useParams } from 'react-router-dom';
 import { trimUrl } from '../../utilities';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../store/store';
+import { cardSlice } from '../../store/reducers/CardSlice';
 
 const serverData = new ServerData();
 interface Props {
@@ -55,7 +58,6 @@ export default function AllPokemons(props: Props) {
   useEffect(() => {
     if (noFilterPokemons) {
       const totalPages = noFilterPokemons && Math.ceil(noFilterPokemons.results.length / cardsPerPage);
-      console.log(totalPages);
       if (totalPages && currentPage > totalPages) {
         navigate('/404');
       }
@@ -77,6 +79,9 @@ export default function AllPokemons(props: Props) {
       navigate(`/page/${currentPage - 1}`);
     }
   };
+  const showCheckedState = useSelector((state: RootState) => state.cardReducer.cards);
+  const dispatch = useDispatch();
+  const { unselectAllCards } = cardSlice.actions;
 
   return (
     <>
@@ -98,6 +103,24 @@ export default function AllPokemons(props: Props) {
         </div>
         <Outlet />
       </div>
+      {showCheckedState.length > 0 && (
+        <div className="checked-result">
+          <div className="checked-result__score">
+            <div className="checked-result__score">{showCheckedState.length}</div>
+          </div>
+          <div className="checked-result__manage">
+            <button
+              className="button button__clear-checked-score"
+              onClick={() => {
+                dispatch(unselectAllCards());
+              }}
+            >
+              Unselect all
+            </button>
+            <button className="button button__download-checked-data">Download</button>
+          </div>
+        </div>
+      )}{' '}
       <div className="pagination-wrapper">
         <button onClick={prevPage} disabled={currentPage === 1}>
           Previous

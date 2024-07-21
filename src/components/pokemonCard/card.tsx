@@ -1,6 +1,10 @@
 import { useEffect, useState } from 'react';
 import ServerData, { Pokemon } from '../../api';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { cardSlice } from '../../store/reducers/CardSlice';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store/store';
 
 const serverData = new ServerData();
 
@@ -11,6 +15,9 @@ type Props = {
 export default function PokemonCard(props: Props) {
   const [pokemon, setPokemon] = useState<Pokemon | null>(null);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { pushCard, removeCard } = cardSlice.actions;
+  const showCheckedState = useSelector((state: RootState) => state.cardReducer.cards);
 
   const getAllPokemonsFromServer = async () => {
     try {
@@ -44,10 +51,26 @@ export default function PokemonCard(props: Props) {
         <h2>Loading...</h2>
       ) : (
         <>
-          <h2 className="card__pokemon-name">{pokemon.name.toUpperCase()}</h2>
+          <h2 className="card__pokemon-name" onClick={() => console.log(showCheckedState)}>
+            {pokemon.name.toUpperCase()}
+          </h2>
           <div className="card__image" style={{ backgroundImage: `url(${pokemon.sprites.front_default})` }}></div>
-
           <p className="card__base-experience">Base experience - {pokemon.base_experience}</p>
+          <input
+            className="card__checkbox"
+            checked={showCheckedState.some((card) => card.id === +getPokemonId())}
+            type="checkbox"
+            onClick={(event) => event.stopPropagation()}
+            onChange={(event) => {
+              const checkCell: HTMLInputElement = event.target as HTMLInputElement;
+              if (checkCell.checked) {
+                console.log(getPokemonId());
+                dispatch(pushCard(+getPokemonId()));
+              } else {
+                dispatch(removeCard(+getPokemonId()));
+              }
+            }}
+          ></input>
         </>
       )}
     </div>

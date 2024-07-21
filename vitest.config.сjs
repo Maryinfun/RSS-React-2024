@@ -1,9 +1,13 @@
 import { defineConfig } from 'vitest/config';
 import coverage from '@vitest/coverage-c8';
+import ‘@testing-library/jest-dom/extend-expect’
 
 export default defineConfig({
   test: {
     setupFiles: './setupTests.js',
+        globals: true,
+    environment: 'jsdom',
+
     coverage: {
       provider: 'v8',
       reporter: ['text', 'json', 'html'],
@@ -11,4 +15,3 @@ export default defineConfig({
   },
   plugins: [coverage()],
 });
-

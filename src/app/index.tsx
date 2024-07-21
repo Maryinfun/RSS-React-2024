@@ -10,11 +10,9 @@ import { ThemeProvider } from '../components/providers';
 
 export default function App() {
   const [searchWord, setSearchWord] = useState(localStorage.getItem('searchWord') || '');
-
   useEffect(() => {
     localStorage.setItem('searchWord', searchWord);
   }, [searchWord]);
-
   return (
     <ThemeProvider>
       <Routes>
@@ -30,6 +28,7 @@ export default function App() {
         >
           <Route path="specification/:specification" element={<CardFullData />} />
         </Route>
+
         <Route
           path="page/:page"
           element={

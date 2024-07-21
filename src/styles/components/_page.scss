@@ -20,6 +20,7 @@ body {
   text-shadow: 5px 5px 5px #1d0a32;
   background: linear-gradient(-5deg, rgb(214 0 201 / 80%), rgba(118, 0, 197, 0.8));
   transition: all 0.2s ease-in;
+  margin: 50px;
 }
 
 h1 {
@@ -65,9 +66,9 @@ button:disabled {
   }
 }
 .header {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
 }
 .main {
   max-width: 1440px;
@@ -94,7 +95,6 @@ button:disabled {
   display: flex;
   flex-wrap: wrap;
   gap: 50px;
-  padding-left: 50px;
   box-sizing: border-box;
 }
 .cards-wrapper__card,
@@ -142,8 +142,12 @@ button:disabled {
     }
   }
 }
+.card__checkbox {
+  scale: 2;
+}
 .card__pokemon-name {
   margin-bottom: 15px;
+  letter-spacing: 5px;
 }
 .card__base-experience {
   text-align: center;
@@ -152,11 +156,28 @@ button:disabled {
   aspect-ratio: 1;
   background: center / contain no-repeat;
 }
+.checked-result {
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+  gap: 25px;
+  background: linear-gradient(-5deg, rgba(214, 0, 201, 0.4), rgba(118, 0, 197, 0.4));
+  padding: 25px;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+.checked-result__score {
+  display: flex;
+  justify-content: center;
+}
+.checked-result__manage {
+  display: flex;
+  gap: 25px;
+}
 .pagination-wrapper {
   display: flex;
   justify-content: flex-start;
   gap: 50px;
-  padding-left: 50px;
 }
 .pagination-wrapper__page-number {
   display: flex;
@@ -181,7 +202,7 @@ button:disabled {
 }
 .light {
   background: linear-gradient(-5deg, rgb(255, 255, 255), rgba(255, 199, 255, 0.8));
-  color: #c80cca;
+  color: #970598;
 }
 @media screen and (max-width: 625px) {
   .wrapper {
