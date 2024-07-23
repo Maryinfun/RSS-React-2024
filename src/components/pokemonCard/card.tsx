@@ -8,7 +8,7 @@ import { RootState } from '../../store/store';
 
 const serverData = new ServerData();
 
-type Props = {
+export type Props = {
   url: string;
 };
 
