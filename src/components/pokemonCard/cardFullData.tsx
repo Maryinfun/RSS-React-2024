@@ -1,37 +1,17 @@
-import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import ServerData, { Pokemon } from '../../api';
 import { trimUrl } from '../../utilities';
-
-const serverData = new ServerData();
+import { pokemonsApi } from '../../api/index';
 
 export default function CardFullData() {
   const navigate = useNavigate();
   const { specification } = useParams();
-  const [pokemon, setPokemon] = useState<Pokemon | null>(null);
 
-  const getAllPokemonsFromServer = async () => {
-    try {
-      setPokemon(null);
-      const pokemon: Pokemon = (await serverData.getAllPokemons(
-        `https://pokeapi.co/api/v2/pokemon/${specification}`
-      )) as Pokemon;
-      setPokemon(pokemon);
-    } catch (error) {
-      console.log((error as Error).message);
-    }
-  };
-
-  useEffect(() => {
-    if (!specification) {
-      return;
-    }
-    getAllPokemonsFromServer();
-  }, [specification]);
+  const { data: pokemon, isError } = pokemonsApi.useGetPokemonByIdQuery(+`${specification}`);
 
   return (
     <div className="card__specification">
-      {pokemon ? (
+      {isError && <h2>Something is wrong...</h2>}
+      {pokemon && (
         <>
           <div className="specification__close" onClick={() => navigate(trimUrl(location.pathname, 'specification'))}>
             x
@@ -49,8 +29,6 @@ export default function CardFullData() {
           <p>Weight {pokemon.weight}</p>
           <p>To read more: {pokemon.forms ? pokemon.forms[0].url : null}</p>
         </>
-      ) : (
-        <h1>Loading...</h1>
       )}
     </div>
   );

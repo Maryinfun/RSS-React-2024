@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 export type ListOfAllPokemons = {
   count: number;
@@ -24,15 +24,23 @@ export type Pokemon = {
   order?: number;
   weight?: number;
 };
-class ServerData {
-  async getAllPokemons(api: string, limit: number = 100): Promise<ListOfAllPokemons | Pokemon> {
-    const result = (
-      await axios.get(api, {
-        params: { limit },
-      })
-    ).data;
-    return result;
-  }
-}
 
-export default ServerData;
+export const pokemonsApi = createApi({
+  reducerPath: 'pokemonsApi',
+  baseQuery: fetchBaseQuery({ baseUrl: 'https://pokeapi.co/api/v2' }),
+  endpoints: (builder) => ({
+    getPokemonById: builder.query<Pokemon, number>({
+      query: (id: number) => ({
+        url: `/pokemon/${id}`,
+      }),
+    }),
+    getAllPokemons: builder.query<ListOfAllPokemons, number>({
+      query: (limit: number = 100) => ({
+        url: `/pokemon?limit=100`,
+        params: {
+          limit: limit,
+        },
+      }),
+    }),
+  }),
+});
