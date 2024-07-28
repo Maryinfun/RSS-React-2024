@@ -42,16 +42,15 @@ export default function PokemonCard(props: Props) {
           <p className="card__base-experience">Base experience - {pokemon?.base_experience}</p>
           <input
             className="card__checkbox"
-            checked={showCheckedState.some((card) => card.id === +getPokemonId())}
+            checked={showCheckedState.some((card) => +card.id === +getPokemonId())}
             type="checkbox"
             onClick={(event) => event.stopPropagation()}
             onChange={(event) => {
               const checkCell: HTMLInputElement = event.target as HTMLInputElement;
               if (checkCell.checked) {
-                console.log(getPokemonId());
-                dispatch(pushCard(+getPokemonId()));
+                dispatch(pushCard(pokemon));
               } else {
-                dispatch(removeCard(+getPokemonId()));
+                dispatch(removeCard(pokemon));
               }
             }}
           ></input>

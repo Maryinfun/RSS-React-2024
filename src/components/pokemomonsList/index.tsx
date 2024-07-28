@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { ListOfAllPokemons } from '../../api';
 import PokemonCard from '../pokemonCard/card';
 import { Outlet, useNavigate, useParams } from 'react-router-dom';
-import { trimUrl } from '../../utilities';
+import { downloadSelectedData, trimUrl } from '../../utilities';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
 import { cardSlice } from '../../store/reducers/CardSlice';
@@ -19,6 +19,7 @@ export default function AllPokemons(props: Props) {
   const [searchResult, setSearchResult] = useState<boolean>(true);
   const [currentPage, setCurrentPage] = useState<number>(parseInt(page || '1', 10));
   const { data: fetchedPokemons, isFetching, isError } = pokemonsApi.useGetAllPokemonsQuery(100);
+
   const cardsPerPage = 6;
 
   const filterPokemons = (pokemons: ListOfAllPokemons, wordForSearch: string): ListOfAllPokemons => {
@@ -59,7 +60,6 @@ export default function AllPokemons(props: Props) {
   const showCheckedState = useSelector((state: RootState) => state.cardReducer.cards);
   const dispatch = useDispatch();
   const { unselectAllCards } = cardSlice.actions;
-
   return (
     <>
       <div className="wrapper">
@@ -87,7 +87,12 @@ export default function AllPokemons(props: Props) {
             >
               Unselect all
             </button>
-            <button className="button button__download-checked-data">Download</button>
+            <button
+              className="button button__download-checked-data"
+              onClick={() => downloadSelectedData(showCheckedState, `${showCheckedState.length}_pokemons`)}
+            >
+              Download
+            </button>
           </div>
         </div>
       )}

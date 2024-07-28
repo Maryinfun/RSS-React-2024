@@ -18,6 +18,7 @@ export type Form = {
 export type Pokemon = {
   name: string;
   sprites: Sprites;
+  id: string;
   forms?: Array<Form>;
   base_experience?: number;
   height?: number;

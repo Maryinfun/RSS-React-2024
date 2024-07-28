@@ -1,5 +1,5 @@
 import { useNavigate, useParams } from 'react-router-dom';
-import { trimUrl } from '../../utilities';
+import { trimUrl } from '../../utilities/index';
 import { pokemonsApi } from '../../api/index';
 
 export default function CardFullData() {
