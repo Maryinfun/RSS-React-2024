@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">62.92% </span>
+                <span class="strong">60.21% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>56/89</span>
+                <span class='fraction'>56/93</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">16.66% </span>
+                <span class="strong">14.28% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>1/6</span>
+                <span class='fraction'>1/7</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">62.92% </span>
+                <span class="strong">60.21% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>56/89</span>
+                <span class='fraction'>56/93</span>
             </div>
         
             
@@ -172,7 +172,12 @@
 <a name='L107'></a><a href='#L107'>107</a>
 <a name='L108'></a><a href='#L108'>108</a>
 <a name='L109'></a><a href='#L109'>109</a>
-<a name='L110'></a><a href='#L110'>110</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L110'></a><a href='#L110'>110</a>
+<a name='L111'></a><a href='#L111'>111</a>
+<a name='L112'></a><a href='#L112'>112</a>
+<a name='L113'></a><a href='#L113'>113</a>
+<a name='L114'></a><a href='#L114'>114</a>
+<a name='L115'></a><a href='#L115'>115</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -193,6 +198,7 @@
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
@@ -233,7 +239,6 @@
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
@@ -261,6 +266,11 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -285,13 +295,13 @@
 import { ListOfAllPokemons } from '../../api';
 import PokemonCard from '../pokemonCard/card';
 import { Outlet, useNavigate, useParams } from 'react-router-dom';
-import { trimUrl } from '../../utilities';
+import { downloadSelectedData, trimUrl } from '../../utilities';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
 import { cardSlice } from '../../store/reducers/CardSlice';
 import { pokemonsApi } from '../../api/index';
 &nbsp;
-interface Props {
+export interface Props {
   wordForSearch: string;
 }
 &nbsp;
@@ -302,6 +312,7 @@ export default function AllPokemons(props: Props) {
   const [searchResult, setSearchResult] = useState&lt;boolean&gt;(true);
   const [currentPage, setCurrentPage] = useState&lt;number&gt;(parseInt(page || '1', 10));
   const { data: fetchedPokemons, isFetching, isError } = pokemonsApi.useGetAllPokemonsQuery(100);
+&nbsp;
   const cardsPerPage = 6;
 &nbsp;
   const filterPokemons = <span class="fstat-no" title="function not covered" >(pokemons: ListOfAllPokemons, wordForSearch: string): ListOfAllPokemons =&gt; {</span>
@@ -342,7 +353,6 @@ export default function AllPokemons(props: Props) {
   const showCheckedState = useSelector((state: RootState) =&gt; state.cardReducer.cards);
   const dispatch = useDispatch();
   const { unselectAllCards } = cardSlice.actions;
-&nbsp;
   return (
     &lt;&gt;
       &lt;div className="wrapper"&gt;
@@ -370,7 +380,12 @@ export default function AllPokemons(props: Props) {
 <span class="cstat-no" title="statement not covered" >            &gt;</span>
               Unselect all
 <span class="cstat-no" title="statement not covered" >            &lt;/button&gt;</span>
-<span class="cstat-no" title="statement not covered" >            &lt;button className="button button__download-checked-data"&gt;Download&lt;/button&gt;</span>
+<span class="cstat-no" title="statement not covered" >            &lt;button</span>
+<span class="cstat-no" title="statement not covered" >              className="button button__download-checked-data"</span>
+<span class="cstat-no" title="statement not covered" >              onClick={<span class="fstat-no" title="function not covered" >() =&gt; downloadSelectedData(showCheckedState, `${showCheckedState.length}_pokemons`)}</span></span>
+<span class="cstat-no" title="statement not covered" >            &gt;</span>
+              Download
+<span class="cstat-no" title="statement not covered" >            &lt;/button&gt;</span>
 <span class="cstat-no" title="statement not covered" >          &lt;/div&gt;</span>
 <span class="cstat-no" title="statement not covered" >        &lt;/div&gt;</span>
       )}
@@ -397,7 +412,7 @@ export default function AllPokemons(props: Props) {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-07-28T08:06:56.531Z
+                at 2024-07-28T15:20:34.761Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

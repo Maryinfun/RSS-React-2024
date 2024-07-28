@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">10.34% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>3/29</span>
+                <span class='fraction'>29/29</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">80% </span>
+                <span class="quiet">Branches</span>
+                <span class='fraction'>4/5</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
-                <span class="quiet">Branches</span>
-                <span class='fraction'>0/0</span>
-            </div>
-        
-            
-            <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/1</span>
+                <span class='fraction'>2/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">10.34% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>3/29</span>
+                <span class='fraction'>29/29</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -102,72 +102,72 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useNavigate, useParams } from 'react-router-dom';
 import { trimUrl } from '../../utilities/index';
 import { pokemonsApi } from '../../api/index';
 &nbsp;
-<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >export default function CardFullData() {</span></span>
-<span class="cstat-no" title="statement not covered" >  const navigate = useNavigate();</span>
-<span class="cstat-no" title="statement not covered" >  const { specification } = useParams();</span>
+export default function CardFullData() {
+  const navigate = useNavigate();
+  const { specification } = useParams();
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  const { data: pokemon, isError } = pokemonsApi.useGetPokemonByIdQuery(+`${specification}`);</span>
+  const { data: pokemon, isError } = pokemonsApi.useGetPokemonByIdQuery(+`${specification}`);
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  return (</span>
-<span class="cstat-no" title="statement not covered" >    &lt;div className="card__specification"&gt;</span>
-<span class="cstat-no" title="statement not covered" >      {isError &amp;&amp; &lt;h2&gt;Something is wrong...&lt;/h2&gt;}</span>
-<span class="cstat-no" title="statement not covered" >      {pokemon &amp;&amp; (</span>
-<span class="cstat-no" title="statement not covered" >        &lt;&gt;</span>
-<span class="cstat-no" title="statement not covered" >          &lt;div className="specification__close" onClick={() =&gt; navigate(trimUrl(location.pathname, 'specification'))}&gt;</span>
+  return (
+    &lt;div className="card__specification"&gt;
+      {isError &amp;&amp; &lt;h2&gt;Something is wrong...&lt;/h2&gt;}
+      {pokemon &amp;&amp; (
+        &lt;&gt;
+          &lt;div className="specification__close" onClick={() =&gt; navigate(trimUrl(location.pathname, 'specification'))}&gt;
             x
-<span class="cstat-no" title="statement not covered" >          &lt;/div&gt;</span>
-<span class="cstat-no" title="statement not covered" >          &lt;div</span>
-<span class="cstat-no" title="statement not covered" >            className="card__image"</span>
-<span class="cstat-no" title="statement not covered" >            style={{</span>
-<span class="cstat-no" title="statement not covered" >              backgroundImage: `url(${pokemon.sprites.front_default})`,</span>
-<span class="cstat-no" title="statement not covered" >            }}</span>
-<span class="cstat-no" title="statement not covered" >          &gt;&lt;/div&gt;</span>
-<span class="cstat-no" title="statement not covered" >          &lt;h2 className="card__pokemon-name"&gt;{pokemon.name.toUpperCase()}&lt;/h2&gt;</span>
-<span class="cstat-no" title="statement not covered" >          &lt;p&gt;Base experience {pokemon.base_experience}&lt;/p&gt;</span>
-<span class="cstat-no" title="statement not covered" >          &lt;p&gt;Height {pokemon.height}&lt;/p&gt;</span>
-<span class="cstat-no" title="statement not covered" >          &lt;p&gt;Order {pokemon.order}&lt;/p&gt;</span>
-<span class="cstat-no" title="statement not covered" >          &lt;p&gt;Weight {pokemon.weight}&lt;/p&gt;</span>
-<span class="cstat-no" title="statement not covered" >          &lt;p&gt;To read more: {pokemon.forms ? pokemon.forms[0].url : null}&lt;/p&gt;</span>
-<span class="cstat-no" title="statement not covered" >        &lt;/&gt;</span>
+          &lt;/div&gt;
+          &lt;div
+            className="card__image"
+            style={{
+              backgroundImage: `url(${pokemon.sprites.front_default})`,
+            }}
+          &gt;&lt;/div&gt;
+          &lt;h2 className="card__pokemon-name"&gt;{pokemon.name.toUpperCase()}&lt;/h2&gt;
+          &lt;p&gt;Base experience {pokemon.base_experience}&lt;/p&gt;
+          &lt;p&gt;Height {pokemon.height}&lt;/p&gt;
+          &lt;p&gt;Order {pokemon.order}&lt;/p&gt;
+          &lt;p&gt;Weight {pokemon.weight}&lt;/p&gt;
+          &lt;p&gt;To read more: {pokemon.forms ? pokemon.forms[0].<span class="branch-0 cbranch-no" title="branch not covered" >url : null}&lt;</span>/p&gt;
+        &lt;/&gt;
       )}
-<span class="cstat-no" title="statement not covered" >    &lt;/div&gt;</span>
+    &lt;/div&gt;
   );
-<span class="cstat-no" title="statement not covered" >}</span>
+}
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -175,7 +175,7 @@ import { pokemonsApi } from '../../api/index';
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-07-28T08:06:56.531Z
+                at 2024-07-28T15:20:34.761Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

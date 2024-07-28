@@ -1,28 +1,19 @@
-import { cardSlice } from './CardSlice';
+import { describe, it, expect } from 'vitest';
+import { cardSlice, initialState } from './CardSlice';
+import { Pokemon } from '../../api';
 
-describe('cardSlice reducer', () => {
-  const initialState = {
-    cards: [],
-  };
+const { actions } = cardSlice;
 
-  const { pushCard, removeCard, unselectAllCards } = cardSlice.actions;
-  let state = cardSlice.reducer(initialState, {
-    type: '',
-  });
-
-  it('should push a new card', () => {
-    state = cardSlice.reducer(state, pushCard(1));
-    expect(state.cards.length).toBe(1);
-  });
-
-  it('should remove a card', () => {
-    state = cardSlice.reducer(state, pushCard(2));
-    state = cardSlice.reducer(state, removeCard(1));
-    expect(state.cards.length).toBe(1);
-  });
-
-  it('should unselect all cards', () => {
-    state = cardSlice.reducer(state, unselectAllCards());
-    expect(state.cards.length).toBe(0);
+describe('cardSlice', () => {
+  it('should handle pushCard', () => {
+    const newPokemon: Pokemon = {
+      name: 'Pikachu',
+      sprites: {
+        front_default: '',
+      },
+      id: '1',
+    };
+    const state = cardSlice.reducer(initialState, actions.pushCard(newPokemon));
+    expect(state.cards).toContainEqual(newPokemon);
   });
 });

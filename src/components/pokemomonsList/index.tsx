@@ -8,7 +8,7 @@ import { RootState } from '../../store/store';
 import { cardSlice } from '../../store/reducers/CardSlice';
 import { pokemonsApi } from '../../api/index';
 
-interface Props {
+export interface Props {
   wordForSearch: string;
 }
 

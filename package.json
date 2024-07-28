@@ -12,7 +12,7 @@
     "format:fix": "prettier --write src/**/*.tsx src/**/*.ts",
     "preview": "vite preview",
     "prepare": "husky install",
-    "test:coverage": "vitest run --coverage"
+    "test": "vitest run --coverage"
   },
   "husky": {
     "hooks": {
