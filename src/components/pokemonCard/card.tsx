@@ -1,16 +1,16 @@
-import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { cardSlice } from '../../store/reducers/CardSlice';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
 import { pokemonsApi } from '../../api/index';
+import { useRouter } from 'next/router';
 
 export type Props = {
   url: string;
 };
 
 export default function PokemonCard(props: Props) {
-  const navigate = useNavigate();
+  const router = useRouter();
   const dispatch = useDispatch();
   const { pushCard, removeCard } = cardSlice.actions;
   const showCheckedState = useSelector((state: RootState) => state.cardReducer.cards);
@@ -28,7 +28,7 @@ export default function PokemonCard(props: Props) {
       className="cards-wrapper__card"
       onClick={(event) => {
         event.stopPropagation();
-        navigate(`specification/${getPokemonId()}`);
+        router.push(`specification/${getPokemonId()}`);
       }}
     >
       {isError && <h2>Something is wrong...</h2>}

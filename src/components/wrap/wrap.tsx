@@ -1,5 +1,5 @@
 import { ReactNode, useContext } from 'react';
-import { ThemeContext } from '../components/providers';
+import { ThemeContext } from '../providers/index';
 
 interface LayoutProps {
   children: ReactNode;

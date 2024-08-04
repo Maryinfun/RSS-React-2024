@@ -1,24 +1,25 @@
 import { useEffect, useState } from 'react';
 import { ListOfAllPokemons } from '../../api';
 import PokemonCard from '../pokemonCard/card';
-import { Outlet, useNavigate, useParams } from 'react-router-dom';
-import { downloadSelectedData, trimUrl } from '../../utilities';
+import { downloadSelectedData } from '../../utilities';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
 import { cardSlice } from '../../store/reducers/CardSlice';
-import { pokemonsApi } from '../../api/index';
+import { useRouter } from 'next/router';
 
 export interface Props {
   wordForSearch: string;
+  currentPage: number;
+  isLoading: boolean;
+  fetchedPokemons?: ListOfAllPokemons;
+  error?: { message: string };
 }
 
-export default function AllPokemons(props: Props) {
-  const { page } = useParams<{ page: string }>();
-  const navigate = useNavigate();
+export default function AllPokemons({ wordForSearch, currentPage, isLoading, fetchedPokemons, error }: Props) {
+  const router = useRouter();
   const [filteredPokemons, setFilteredPokemons] = useState<ListOfAllPokemons | null>(null);
   const [searchResult, setSearchResult] = useState<boolean>(true);
-  const [currentPage, setCurrentPage] = useState<number>(parseInt(page || '1', 10));
-  const { data: fetchedPokemons, isFetching, isError } = pokemonsApi.useGetAllPokemonsQuery(100);
+  const [page, setPage] = useState<number>(currentPage);
 
   const cardsPerPage = 6;
 
@@ -34,80 +35,83 @@ export default function AllPokemons(props: Props) {
 
   useEffect(() => {
     if (!fetchedPokemons) return;
-    setFilteredPokemons(filterPokemons(fetchedPokemons, props.wordForSearch));
-  }, [props.wordForSearch, fetchedPokemons]);
+    setFilteredPokemons(filterPokemons(fetchedPokemons, wordForSearch));
+  }, [wordForSearch, fetchedPokemons]);
 
   useEffect(() => {
-    setCurrentPage(parseInt(page || '1', 10));
-  }, [page]);
+    setPage(currentPage);
+  }, [currentPage]);
 
-  const lastCardInd: number = currentPage * cardsPerPage;
+  const lastCardInd: number = page * cardsPerPage;
   const firstCardInd: number = lastCardInd - cardsPerPage;
   const currentCards = filteredPokemons?.results.length
     ? filteredPokemons.results.slice(firstCardInd, lastCardInd)
     : [];
+
   const nextPage = () => {
-    if (currentPage < Math.ceil((filteredPokemons?.results.length || 0) / cardsPerPage)) {
-      navigate(`/page/${currentPage + 1}`);
+    if (page < Math.ceil((filteredPokemons?.results.length || 0) / cardsPerPage)) {
+      router.push(`/page/${page + 1}`);
     }
   };
 
   const prevPage = () => {
-    if (currentPage > 1) {
-      navigate(`/page/${currentPage - 1}`);
+    if (page > 1) {
+      router.push(`/page/${page - 1}`);
     }
   };
+
   const showCheckedState = useSelector((state: RootState) => state.cardReducer.cards);
   const dispatch = useDispatch();
   const { unselectAllCards } = cardSlice.actions;
+
+  if (isLoading) return <h2>Loading...</h2>;
+  if (error) return <h2>Error: {error.message}</h2>;
+  if (!filteredPokemons || !filteredPokemons.results.length) return <h2>No pokemons found</h2>;
+
   return (
     <>
       <div className="wrapper">
-        <div className="cards-wrapper" onClick={() => navigate(trimUrl(location.pathname, 'specification'))}>
-          {isError && <h2>Something is wrong...</h2>}
+        <div className="cards-wrapper">
           {!searchResult && <h2>Sorry, not found.</h2>}
-          {isFetching && <h2>Loading...</h2>}
           {currentCards.map((pokemon) => (
             <PokemonCard key={pokemon.name} url={pokemon.url} />
           ))}
         </div>
-        <Outlet />
-      </div>
-      {showCheckedState.length > 0 && (
-        <div className="checked-result">
-          <div className="checked-result__score">
-            <div className="checked-result__score">{showCheckedState.length}</div>
+        {showCheckedState.length > 0 && (
+          <div className="checked-result">
+            <div className="checked-result__score">
+              <div className="checked-result__score">{showCheckedState.length}</div>
+            </div>
+            <div className="checked-result__manage">
+              <button
+                className="button button__clear-checked-score"
+                onClick={() => {
+                  dispatch(unselectAllCards());
+                }}
+              >
+                Unselect all
+              </button>
+              <button
+                className="button button__download-checked-data"
+                onClick={() => downloadSelectedData(showCheckedState, `${showCheckedState.length}_pokemons`)}
+              >
+                Download
+              </button>
+            </div>
           </div>
-          <div className="checked-result__manage">
-            <button
-              className="button button__clear-checked-score"
-              onClick={() => {
-                dispatch(unselectAllCards());
-              }}
-            >
-              Unselect all
-            </button>
-            <button
-              className="button button__download-checked-data"
-              onClick={() => downloadSelectedData(showCheckedState, `${showCheckedState.length}_pokemons`)}
-            >
-              Download
-            </button>
-          </div>
+        )}
+        <div className="pagination-wrapper">
+          <button onClick={prevPage} disabled={page === 1}>
+            Previous
+          </button>
+          <div className="pagination-wrapper__page-number">{page}</div>
+          <button
+            onClick={nextPage}
+            disabled={page === Math.ceil((filteredPokemons?.results.length || 0) / cardsPerPage)}
+          >
+            Next
+          </button>
         </div>
-      )}
-      <div className="pagination-wrapper">
-        <button onClick={prevPage} disabled={currentPage === 1}>
-          Previous
-        </button>
-        <div className="pagination-wrapper__page-number">{currentPage}</div>
-
-        <button
-          onClick={nextPage}
-          disabled={currentPage === Math.ceil((fetchedPokemons?.results.length || 0) / cardsPerPage)}
-        >
-          Next
-        </button>
       </div>
     </>
   );

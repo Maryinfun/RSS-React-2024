@@ -3,13 +3,13 @@ html * {
   margin: 0;
   box-sizing: border-box;
   font-size: 32px;
-  font-family: "Honey Crepes";
+  font-family: 'Honey Crepes';
 }
 
-@font-face {
+/* @font-face {
   font-family: "Honey Crepes";
   src: url("../../assets/fonts/Honey Crepes.ttf");
-}
+} */
 body {
   display: flex;
   flex-direction: column;
@@ -99,7 +99,7 @@ button:disabled {
 }
 
 .wrapper {
-  display: flex;
+  display: contents;
 }
 
 .cards-wrapper {
@@ -220,7 +220,7 @@ button:disabled {
 }
 
 .page-404__img {
-  background: center/contain no-repeat url(../../assets/image/404.png);
+  /* background: center/contain no-repeat url(../../assets/image/404.png); */
   aspect-ratio: 1;
   flex: 1 1 400px;
 }
@@ -239,4 +239,4 @@ button:disabled {
   .wrapper {
     flex-flow: wrap-reverse;
   }
-}/*# sourceMappingURL=style.css.map */
+} /*# sourceMappingURL=style.css.map */
