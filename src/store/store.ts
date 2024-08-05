@@ -1,33 +1,44 @@
-// import { combineReducers, configureStore, PayloadAction } from '@reduxjs/toolkit';
-// import cardReducer from './reducers/CardSlice';
-// import { pokemonsApi } from '../api/index';
-// import { HYDRATE, createWrapper } from 'next-redux-wrapper';
+import { combineReducers, configureStore, PayloadAction } from '@reduxjs/toolkit';
+import cardReducer from './reducers/CardSlice';
+import { Pokemon, pokemonsApi } from '../api/index';
+import { HYDRATE, createWrapper } from 'next-redux-wrapper';
 
-// const rootReducer = combineReducers({
-//   cardReducer,
-//   [pokemonsApi.reducerPath]: pokemonsApi.reducer,
-// });
+const rootReducer = combineReducers({
+  cardReducer,
+  [pokemonsApi.reducerPath]: pokemonsApi.reducer,
+});
 
-// export type RootState = ReturnType<typeof rootReducer>;
+export type RootState = ReturnType<typeof rootReducer>;
 
-// const combinedReducer = (state: RootState | undefined, action: PayloadAction): RootState => {
-//   if (action.type === HYDRATE) {
-//     return {
-//       ...state,
-//       ...action.payload,
-//     };
-//   }
-//   return rootReducer(state, action);
-// };
+type HydrateAction = {
+  type: typeof HYDRATE;
+  payload: RootState;
+};
 
-// const makeStore = () =>
-//   configureStore({
-//     reducer: combinedReducer,
-//     middleware: (getDefaultMiddleware) =>
-//       getDefaultMiddleware({ serializableCheck: false }).concat(pokemonsApi.middleware),
-//   });
+type AppPayloadAction = PayloadAction<Pokemon> | HydrateAction;
 
-// export type AppStore = ReturnType<typeof makeStore>;
-// export type AppDispatch = AppStore['dispatch'];
+const combinedReducer = (state: RootState | undefined, action: AppPayloadAction): RootState => {
+  if (action.type === HYDRATE) {
+    const hydratePayload = action.payload as RootState;
+    return {
+      ...state,
+      ...hydratePayload,
+      cardReducer: hydratePayload.cardReducer ?? state?.cardReducer,
+      [pokemonsApi.reducerPath]: hydratePayload[pokemonsApi.reducerPath] ?? state?.[pokemonsApi.reducerPath],
+    };
+  }
 
-// export const wrapper = createWrapper<AppStore>(makeStore, { debug: false });
+  return rootReducer(state, action);
+};
+
+const makeStore = () =>
+  configureStore({
+    reducer: combinedReducer,
+    middleware: (getDefaultMiddleware) =>
+      getDefaultMiddleware({ serializableCheck: false }).concat(pokemonsApi.middleware),
+  });
+
+export type AppStore = ReturnType<typeof makeStore>;
+export type AppDispatch = AppStore['dispatch'];
+
+export const wrapper = createWrapper<AppStore>(makeStore, { debug: false });

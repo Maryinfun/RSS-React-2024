@@ -9,6 +9,8 @@ import BadPath from '@/components/404/404';
 import CardFullData from '@/components/pokemonCard/cardFullData';
 import { wrapper } from '@/store/store';
 import { GetServerSideProps } from 'next';
+import { SerializedError } from '@reduxjs/toolkit';
+import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 
 interface HomePageProps {
   initialPokemonsData: ListOfAllPokemons | undefined;
@@ -41,6 +43,26 @@ const HomePage = ({ initialPokemonsData }: HomePageProps) => {
     localStorage.setItem('searchWord', searchWord);
   }, [searchWord]);
 
+  const getErrorMessage = (
+    error: FetchBaseQueryError | SerializedError | undefined
+  ): { message: string } | undefined => {
+    if (!error) {
+      return undefined;
+    }
+
+    if ('status' in error) {
+      return { message: `Error ${error.status}: ${error.data}` };
+    }
+
+    if ('message' in error) {
+      return { message: error.message || 'An unknown error occurred' };
+    }
+
+    return { message: 'An unknown error occurred' };
+  };
+
+  const errorMessage = getErrorMessage(error);
+
   return (
     <Layout>
       {route.startsWith('specification/') && <CardFullData />}
@@ -52,7 +74,7 @@ const HomePage = ({ initialPokemonsData }: HomePageProps) => {
             currentPage={currentPage}
             fetchedPokemons={fetchedPokemons ?? initialPokemonsData}
             isLoading={isLoading}
-            error={error}
+            error={errorMessage}
           />
           <ForceError />
         </>
