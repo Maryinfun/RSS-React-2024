@@ -4,7 +4,7 @@ import SearchInput from '../components/searchInput';
 import Layout from '../components/wrap/wrap';
 import ForceError from '../components/forceErrorButton';
 import { useEffect, useState } from 'react';
-import BadPath from '@/components/404/404';
+import BadPath from './404';
 import CardFullData from '@/components/pokemonCard/cardFullData';
 import { ListOfAllPokemons, pokemonsApi } from '@/api';
 import { wrapper } from '@/store/store';

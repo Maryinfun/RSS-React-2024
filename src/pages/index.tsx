@@ -5,12 +5,13 @@ import ForceError from '../components/forceErrorButton';
 import AllPokemons from '../components/pokemomonsList';
 import { ListOfAllPokemons, pokemonsApi } from '@/api';
 import { useRouter } from 'next/router';
-import BadPath from '@/components/404/404';
+import BadPath from './404';
 import CardFullData from '@/components/pokemonCard/cardFullData';
 import { wrapper } from '@/store/store';
 import { GetServerSideProps } from 'next';
 import { SerializedError } from '@reduxjs/toolkit';
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
+import { ThemeProvider } from '@/components/providers';
 
 interface HomePageProps {
   initialPokemonsData: ListOfAllPokemons | undefined;
@@ -64,23 +65,26 @@ const HomePage = ({ initialPokemonsData }: HomePageProps) => {
   const errorMessage = getErrorMessage(error);
 
   return (
-    <Layout>
-      {route.startsWith('specification/') && <CardFullData />}
-      {(route.startsWith('page/') || route === '') && (
-        <>
-          <SearchInput addSearchWord={setSearchWord} />
-          <AllPokemons
-            wordForSearch={searchWord}
-            currentPage={currentPage}
-            fetchedPokemons={fetchedPokemons ?? initialPokemonsData}
-            isLoading={isLoading}
-            error={errorMessage}
-          />
-          <ForceError />
-        </>
-      )}
-      {route !== '' && !route.startsWith('page/') && !route.startsWith('specification/') && <BadPath />}
-    </Layout>
+    <ThemeProvider>
+      <Layout>
+        {route.startsWith('specification/') && <CardFullData />}
+        {(route.startsWith('page/') || route === '') && (
+          <>
+            <SearchInput addSearchWord={setSearchWord} />
+            <AllPokemons
+              wordForSearch={searchWord}
+              currentPage={currentPage}
+              fetchedPokemons={fetchedPokemons ?? initialPokemonsData}
+              isLoading={isLoading}
+              error={errorMessage}
+              onSelectPokemon={(id) => router.push(`/specification/${id}`, undefined, { shallow: true })}
+            />
+            <ForceError />
+          </>
+        )}
+        {route !== '' && !route.startsWith('page/') && !route.startsWith('specification/') && <BadPath />}
+      </Layout>
+    </ThemeProvider>
   );
 };
 
