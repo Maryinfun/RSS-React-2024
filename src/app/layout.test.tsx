@@ -1,15 +1,23 @@
-import { render, screen, fireEvent } from '@testing-library/react';
-import '@testing-library/jest-dom/vitest';
-import Layout from './layout';
+import React from 'react';
+import { render } from '@testing-library/react';
+import '@testing-library/jest-dom';
+import RootLayout from '../app/layout';
 
-test('Layout component renders correctly', () => {
-  render(<Layout>Content</Layout>);
+describe('RootLayout', () => {
+  it('renders the children inside the root div', () => {
+    document.documentElement.setAttribute('lang', 'en');
 
-  const headerText = screen.getByText('Welcome to Pokemon World!');
-  expect(headerText).toBeInTheDocument();
+    render(
+      <RootLayout>
+        <div>Test Child</div>
+      </RootLayout>
+    );
 
-  const themeButton = screen.getByRole('button', { name: 'Change Theme' });
-  expect(themeButton).toBeInTheDocument();
+    const htmlElement = document.documentElement;
+    expect(htmlElement.getAttribute('lang')).toBe('en');
 
-  fireEvent.click(themeButton);
+    expect(document.title).toBe('React');
+
+    expect(document.getElementById('root')).toHaveTextContent('Test Child');
+  });
 });

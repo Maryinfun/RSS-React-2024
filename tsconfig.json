@@ -10,8 +10,11 @@
   ],
   "compilerOptions": {
     "target": "ES6",
-    "lib": ["dom", "es2015"],
-    "jsx": "react",
+    "lib": [
+      "dom",
+      "es2015"
+    ],
+    "jsx": "preserve",
     "module": "commonjs",
     "moduleResolution": "node",
     "esModuleInterop": true,
@@ -28,8 +31,31 @@
     "noFallthroughCasesInSwitch": true,
     "baseUrl": "./",
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": [
+        "src/*"
+      ]
     },
-        "types": ["@testing-library/jest-dom"],
-  }
+    "types": [
+      "@testing-library/jest-dom"
+    ],
+    "allowJs": true,
+    "noEmit": true,
+    "incremental": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ]
+  },
+  "include": [
+    "next-env.d.ts",
+    "./dist/types/**/*.ts",
+    "**/*.ts",
+    "**/*.tsx"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }

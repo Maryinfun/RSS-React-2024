@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom/client';
 import ErrorBoundary from './components/errorBoundary';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
-import App from './app/index';
+import App from './main/index';
 
 test('rendering basic elements', async () => {
   const store = setupStore();
