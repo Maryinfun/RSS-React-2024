@@ -1,8 +1,6 @@
-import { useState } from 'react';
-import reactLogo from './assets/react.svg';
-import viteLogo from '/vite.svg';
 // import './App.css';
 import { Link, Route, Routes } from 'react-router-dom';
+import ControlledFormPage from './components/formTable';
 
 function App() {
   return (
@@ -12,15 +10,11 @@ function App() {
           path="/"
           element={
             <>
-              <nav>
-                <ul>
-                  <li>
-                    <Link to="/controlled-form">Controlled Form</Link>
-                  </li>
-                  <li>
-                    <Link to="/uncontrolled-form">Uncontrolled Form</Link>
-                  </li>
-                </ul>
+              <nav className='main__nav'>
+                <Link to="/controlled-form" className="nav__link">
+                  Controlled Form
+                </Link>
+                <Link to="/uncontrolled-form" className="nav__link">Uncontrolled Form</Link>
               </nav>
             </>
           }
@@ -28,9 +22,7 @@ function App() {
         <Route
           path="controlled-form"
           element={
-            <>
-              <h1>Fill in your data</h1>
-            </>
+            <ControlledFormPage />
           }
         ></Route>
         <Route
