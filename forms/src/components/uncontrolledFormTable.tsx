@@ -21,7 +21,7 @@ const FORM_KEYS: (keyof FormValues)[] = [
   'gender',
   'terms',
   'country',
-  // 'picture', 
+  // 'picture',
 ];
 
 export default function UncontrolledFormPage() {
@@ -30,7 +30,6 @@ export default function UncontrolledFormPage() {
   const formRef = useRef<HTMLFormElement>(null);
   const { addFormData } = useFormContext();
   const [errors, setErrors] = useState<FormErrors>({});
-  const [isFormValid, setIsFormValid] = useState<boolean>(false);
   const [isFormComplete, setIsFormComplete] = useState<boolean>(false);
 
   const countries = useSelector((state: RootState) => state.form.countries);
@@ -73,7 +72,6 @@ export default function UncontrolledFormPage() {
 
     const validationErrors = await validateForm(data);
     setErrors(validationErrors);
-    setIsFormValid(Object.keys(validationErrors).length === 0);
 
     if (Object.keys(validationErrors).length === 0) {
       const processedData = {
