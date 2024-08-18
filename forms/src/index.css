@@ -82,6 +82,27 @@ button:focus-visible {
 .form__line {
   display: flex;
   margin: 20px 0;
+  align-items: center;
+}
+.line__error {
+  color: red;
+  margin-top: 0;
+  font-size: 1.5rem;
+}
+.line__input {
+  font-size: 1.5rem;
+  font-weight: 600;
+  padding: 10px;
+  height: 30px;
+}
+.line__select {
+  height: 50px;
+  font-size: 1.5rem;
+}
+.line__checkbox,
+.line__input-file {
+  height: 50px;
+  font-size: 1.5rem;
 }
 @media (prefers-color-scheme: light) {
   :root {
