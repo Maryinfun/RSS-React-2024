@@ -21,7 +21,6 @@ const FORM_KEYS: (keyof FormValues)[] = [
   'gender',
   'terms',
   'country',
-  // 'picture',
 ];
 
 export default function UncontrolledFormPage() {
@@ -37,7 +36,7 @@ export default function UncontrolledFormPage() {
   const validateForm = async (formData: FormValues): Promise<FormErrors> => {
     try {
       await validationSchema.validate(formData, { abortEarly: false });
-      return {}; // No errors
+      return {};
     } catch (err) {
       if (err instanceof yup.ValidationError) {
         const errorMessages: FormErrors = {};
