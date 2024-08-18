@@ -1,9 +1,23 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   controlledFormData: null,
   uncontrolledFormData: null,
-  countries: [],
+  countries: [
+    'United States',
+    'Italy',
+    'Canada',
+    'United Kingdom',
+    'Germany',
+    'Spain',
+    'France',
+    'Japan',
+    'Croatia',
+    'India',
+    'Australia',
+    'Mexico',
+
+  ],
 };
 
 const formSlice = createSlice({

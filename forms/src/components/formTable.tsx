@@ -1,60 +1,21 @@
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from 'yup';
 import { useNavigate } from 'react-router-dom';
 import { useFormContext } from '../context/formContext';
+import { validationSchema } from '../utilities';
+import { RootState } from '../store/store';
+import { useSelector } from 'react-redux';
 
 export interface FormValues {
   name: string;
-  age: number;
+  age: string;
   email: string;
   password: string;
   confirmPassword: string;
   gender: string;
   terms: boolean;
-  //   picture: FileList;
+  country: string;
 }
-
-const validationSchema: yup.ObjectSchema<FormValues> = yup.object().shape({
-  name: yup
-    .string()
-    .required('Name is required')
-    .matches(/^[A-Z]/, 'Name must start with an uppercase letter'),
-  age: yup.number().required('Age is required').positive('Age must be a positive number'),
-  email: yup
-    .string()
-    .required('Email is required')
-    .matches(/^[^\s@]+@[^\s@]+\.[^\s@]{1,}$/, 'Email must be a valid email address in the format a@a.a'),
-  password: yup
-    .string()
-    .required('Password is required')
-    .matches(/(?=.*[0-9])/, 'Password must contain at least one number')
-    .matches(/(?=.*[a-z])/, 'Password must contain at least one lowercase letter')
-    .matches(/(?=.*[A-Z])/, 'Password must contain at least one uppercase letter')
-    .matches(/(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-])/, 'Password must contain at least one special character')
-    .min(8, 'Password must be at least 8 characters long'),
-  confirmPassword: yup
-    .string()
-    .oneOf([yup.ref('password'), undefined], 'Passwords must match')
-    .required('Confirm Password is required'),
-  gender: yup.string().required('Gender is required'),
-  terms: yup
-    .bool()
-    .oneOf([true], 'The terms and conditions must be accepted')
-    .required('Terms must be accepted')
-    .default(false),
-  //   picture: yup
-  //     .mixed<FileList>()
-  //     .test('fileSize', 'File size is too large', (value: FileList | null | undefined) => {
-  //       if (!value || value.length === 0) return true;
-  //       return value[0].size <= 5000000;
-  //     })
-  //     .test('fileType', 'Unsupported file format', (value: FileList | null | undefined) => {
-  //       if (!value || value.length === 0) return true;
-  //       return ['image/jpeg', 'image/png'].includes(value[0].type);
-  //     })
-  //     .required('Picture is required'),
-});
 
 export default function ControlledFormPage() {
   const navigate = useNavigate();
@@ -67,11 +28,15 @@ export default function ControlledFormPage() {
     mode: 'onChange',
   });
   const { addFormData } = useFormContext();
-
+  const countries = useSelector((state: RootState) => state.form.countries);
   const onSubmit = (data: FormValues) => {
-    console.log(data);
+    const processedData = {
+      ...data,
+      age: Number(data.age),
+    };
+
     navigate('/');
-    addFormData(data);
+    addFormData(processedData);
   };
   return (
     <form className="form" onSubmit={handleSubmit(onSubmit)}>
@@ -122,10 +87,16 @@ export default function ControlledFormPage() {
       </div>
       {errors.terms && <p>{errors.terms.message}</p>}
 
-      {/* <div className="form__line">
-        <input id="picture" type="file" accept=".jpg,.jpeg,.png" {...register('picture')} className="line__input-file" />
+      <div className="form__line">
+        <label htmlFor="country">Country</label>
+        <input id="country" list="country-list" {...register('country')} className="line__select" />
+        <datalist id="country-list">
+          {countries.map((country) => (
+            <option key={country} value={country} />
+          ))}
+        </datalist>
+        {errors.country && <p>{errors.country.message}</p>}
       </div>
- */}
       <button type="submit" disabled={!isValid}>
         Submit
       </button>

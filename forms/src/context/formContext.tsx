@@ -1,6 +1,5 @@
 import React, { createContext, useContext, useState, ReactNode } from 'react';
 
-
 interface FormValues {
     name: string;
     age: number;
@@ -9,6 +8,7 @@ interface FormValues {
     confirmPassword: string;
     gender: string;
     terms: boolean;
+    country: string;
   }
   
   interface FormContextType {

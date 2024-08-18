@@ -59,6 +59,7 @@ tr,
 th,
 td {
   border: 1px solid;
+  text-align: center;
 }
 #root {
   width: 100%;
@@ -73,6 +74,9 @@ td {
 .main__nav {
   display: flex;
   justify-content: space-around;
+}
+.main__start {
+  text-align: center;
 }
 .nav__link {
   box-shadow: 5px 5px 10px #0000006e;
