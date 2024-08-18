@@ -111,26 +111,26 @@ export default function UncontrolledFormPage() {
       <div className="form__line">
         <label htmlFor="name">Name</label>
         <input id="name" name="name" className="line__input" onChange={checkIfFormComplete} />
-        {errors.name && <p className="line__error">{errors.name}</p>}
       </div>
+      {errors.name && <p className="line__error">{errors.name}</p>}
 
       <div className="form__line">
         <label htmlFor="age">Age</label>
         <input id="age" name="age" className="line__input" onChange={checkIfFormComplete} />
-        {errors.age && <p className="line__error">{errors.age}</p>}
       </div>
+      {errors.age && <p className="line__error">{errors.age}</p>}
 
       <div className="form__line">
         <label htmlFor="email">Email</label>
         <input id="email" name="email" type="email" className="line__input" onChange={checkIfFormComplete} />
-        {errors.email && <p className="line__error">{errors.email}</p>}
       </div>
+      {errors.email && <p className="line__error">{errors.email}</p>}
 
       <div className="form__line">
         <label htmlFor="password">Password</label>
         <input id="password" name="password" type="password" className="line__input" onChange={checkIfFormComplete} />
-        {errors.password && <p className="line__error">{errors.password}</p>}
       </div>
+      {errors.password && <p className="line__error">{errors.password}</p>}
 
       <div className="form__line">
         <label htmlFor="confirmPassword">Confirm Password</label>
@@ -141,8 +141,8 @@ export default function UncontrolledFormPage() {
           className="line__input"
           onChange={checkIfFormComplete}
         />
-        {errors.confirmPassword && <p className="line__error">{errors.confirmPassword}</p>}
       </div>
+      {errors.confirmPassword && <p className="line__error">{errors.confirmPassword}</p>}
 
       <div className="form__line">
         <label htmlFor="gender">Gender</label>
@@ -152,14 +152,14 @@ export default function UncontrolledFormPage() {
           <option value="female">Female</option>
           <option value="other">Other</option>
         </select>
-        {errors.gender && <p className="line__error">{errors.gender}</p>}
       </div>
+      {errors.gender && <p className="line__error">{errors.gender}</p>}
 
       <div className="form__line">
         <label htmlFor="terms">Accept Terms and Conditions</label>
         <input id="terms" name="terms" type="checkbox" className="line__checkbox" onChange={checkIfFormComplete} />
-        {errors.terms && <p className="line__error">{errors.terms}</p>}
       </div>
+      {errors.terms && <p className="line__error">{errors.terms}</p>}
 
       <div className="form__line">
         <label htmlFor="country">Country</label>
@@ -171,8 +171,8 @@ export default function UncontrolledFormPage() {
             </option>
           ))}
         </select>
-        {errors.country && <p className="line__error">{errors.country}</p>}
       </div>
+      {errors.country && <p className="line__error">{errors.country}</p>}
 
       <button type="submit" disabled={!isFormComplete}>
         Submit
