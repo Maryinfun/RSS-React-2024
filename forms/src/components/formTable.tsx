@@ -1,8 +1,10 @@
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
+import { useNavigate } from 'react-router-dom';
+import { useFormContext } from '../context/formContext';
 
-interface FormValues {
+export interface FormValues {
   name: string;
   age: number;
   email: string;
@@ -10,7 +12,7 @@ interface FormValues {
   confirmPassword: string;
   gender: string;
   terms: boolean;
-//   picture: FileList;
+  //   picture: FileList;
 }
 
 const validationSchema: yup.ObjectSchema<FormValues> = yup.object().shape({
@@ -19,7 +21,10 @@ const validationSchema: yup.ObjectSchema<FormValues> = yup.object().shape({
     .required('Name is required')
     .matches(/^[A-Z]/, 'Name must start with an uppercase letter'),
   age: yup.number().required('Age is required').positive('Age must be a positive number'),
-  email: yup.string().required('Email is required').email('Email must be a valid email'),
+  email: yup
+    .string()
+    .required('Email is required')
+    .matches(/^[^\s@]+@[^\s@]+\.[^\s@]{1,}$/, 'Email must be a valid email address in the format a@a.a'),
   password: yup
     .string()
     .required('Password is required')
@@ -38,32 +43,36 @@ const validationSchema: yup.ObjectSchema<FormValues> = yup.object().shape({
     .oneOf([true], 'The terms and conditions must be accepted')
     .required('Terms must be accepted')
     .default(false),
-//   picture: yup
-//     .mixed<FileList>()
-//     .test('fileSize', 'File size is too large', (value: FileList | null | undefined) => {
-//       if (!value || value.length === 0) return true;
-//       return value[0].size <= 5000000;
-//     })
-//     .test('fileType', 'Unsupported file format', (value: FileList | null | undefined) => {
-//       if (!value || value.length === 0) return true;
-//       return ['image/jpeg', 'image/png'].includes(value[0].type);
-//     })
-//     .required('Picture is required'),
+  //   picture: yup
+  //     .mixed<FileList>()
+  //     .test('fileSize', 'File size is too large', (value: FileList | null | undefined) => {
+  //       if (!value || value.length === 0) return true;
+  //       return value[0].size <= 5000000;
+  //     })
+  //     .test('fileType', 'Unsupported file format', (value: FileList | null | undefined) => {
+  //       if (!value || value.length === 0) return true;
+  //       return ['image/jpeg', 'image/png'].includes(value[0].type);
+  //     })
+  //     .required('Picture is required'),
 });
 
 export default function ControlledFormPage() {
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isValid },
   } = useForm({
     resolver: yupResolver(validationSchema),
+    mode: 'onChange',
   });
+  const { addFormData } = useFormContext();
 
   const onSubmit = (data: FormValues) => {
     console.log(data);
+    navigate('/');
+    addFormData(data);
   };
-
   return (
     <form className="form" onSubmit={handleSubmit(onSubmit)}>
       <div className="form__line">
@@ -98,14 +107,14 @@ export default function ControlledFormPage() {
 
       <div className="form__line">
         <label htmlFor="gender">Gender</label>
-        <select id="gender" {...register('gender')}  className="line__select">
+        <select id="gender" {...register('gender')} className="line__select">
           <option value="">Select Gender</option>
           <option value="male">Male</option>
           <option value="female">Female</option>
           <option value="other">Other</option>
         </select>
       </div>
-      {errors.gender && <p>{errors.gender.message}</p> }
+      {errors.gender && <p>{errors.gender.message}</p>}
 
       <div className="form__line">
         <label htmlFor="acceptTandC">Accept Terms and Conditions</label>
@@ -117,7 +126,9 @@ export default function ControlledFormPage() {
         <input id="picture" type="file" accept=".jpg,.jpeg,.png" {...register('picture')} className="line__input-file" />
       </div>
  */}
-      <button type="submit">Submit</button>
+      <button type="submit" disabled={!isValid}>
+        Submit
+      </button>
     </form>
   );
 }

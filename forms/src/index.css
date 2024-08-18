@@ -16,7 +16,7 @@
 body {
   margin: 0;
   display: flex;
-  place-items: center;
+  justify-content: center;
   min-width: 320px;
   min-height: 100vh;
 }
@@ -47,22 +47,32 @@ button:hover {
   scale: 1.2;
   transition: scale 0.2s ease-in-out;
 }
+button:disabled {
+  scale: 1;
+  cursor: default;
+}
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
+tr,
+th,
+td {
+  border: 1px solid;
+}
 #root {
   width: 100%;
+  max-width: 1420px;
   font-size: 2em;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   padding: 50px;
+  gap: 100px;
 }
 .main__nav {
   display: flex;
   justify-content: space-around;
-  max-width: 1420px;
-  width: 100%;
 }
 .nav__link {
   box-shadow: 5px 5px 10px #0000006e;
